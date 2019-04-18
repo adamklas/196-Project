@@ -42,7 +42,7 @@ Modify this code to write a LeNet with the following requirements:
     output 10-dimensional vector (This is specified through units.)
 """
 # TODO: Import other layers as necessary. (Conv2D, MaxPooling2D)
-from keras.layers import Input, Dense, convolutional.Conv2D, convolutional.MaxPooling2D
+from keras.layers import Input, Dense, Conv2D, MaxPooling2D
 from keras.models import Model
 
 # TODO: Currently, sets input dimension to be 784x1. Change to 32x32x1
@@ -51,11 +51,11 @@ inputs = Input(shape=(32,32,1))
 # A layer instance is callable on a tensor, and returns a tensor
 #a = Dense(64, activation='relu')(inputs)
 #a = Dense(64, activation='relu')(a)
-b = Conv2D(filters=(6,28,28),kernel_size=(5, 5), strides=1, activation='sigmoid')(inputs)
-c = MaxPooling2D(filters = (6,28,28), pool_size = (2,2), strides = 2)(b)
-d = Conv2D(filters=(16,10,10),kernel_size=(5, 5), strides=1, activation='sigmoid')(c)
-e = MaxPooling2D(filters = (16,5,5), pool_size = (2,2), strides = 2)(d)
-f = Conv2D(filters=(120,1,1),kernel_size=(5, 5), strides=1, activation='sigmoid')(e)
+b = Conv2D(filters=6,kernel_size=(5, 5), activation='sigmoid')(inputs)
+c = MaxPooling2D(pool_size = (2,2), strides = 2)(b)
+d = Conv2D(filters=16,kernel_size=(5, 5), activation='sigmoid')(c)
+e = MaxPooling2D(pool_size = (2,2), strides = 2)(d)
+f = Conv2D(filters=120,kernel_size=(5, 5), activation='sigmoid')(e)
 h = Dense(84, activation = 'tanh')(f)
 predictions = Dense(10, activation='softmax')(h)
 
