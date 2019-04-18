@@ -14,20 +14,22 @@ All the above steps should be in one function called process_image()
 """
 
 # TODO: Import OpenCV
-
+import cv2
 
 # TODO: Edit this function
 def process_image():
-    return
+	image = cv2.imread(geisel.jpg, CV_LOAD_IMAGE_GRAYSCALE)
+	
+    	return
 
 # Just prints 'Hello World! to screen.
-def hello_world():
-    print('Hello World!')
-    return
+#def hello_world():
+#    print('Hello World!')
+#    return
 
 # TODO: Call process_image function.
 def main():
-    hello_world()
+#    hello_world()
     return
 
 
