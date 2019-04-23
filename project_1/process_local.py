@@ -18,9 +18,15 @@ import cv2
 
 # TODO: Edit this function
 def process_image():
-	image = cv2.imread(geisel.jpg, CV_LOAD_IMAGE_GRAYSCALE)
+	image = cv2.imread('geisel.jpg', 0)
+	size0 = image.shape
+	resized_image = cv2.resize(image, (size0[1]/2,size0[0]/2))
+    	size1 = resized_image.shape
 	
-    	return
+	rectangle_image = cv2.rectangle(resized_image, ((size1[1]/2)-50,(size1[0]/2)-50), ((size1[1]/2)+50,(size1[0]/2)+50),(255,255,255))
+	#cv2.imshow('ImageWindown',rectangle_image)
+	cv2.imwrite('processed_geisel.jpg', rectangle_image)
+	return
 
 # Just prints 'Hello World! to screen.
 #def hello_world():
@@ -30,7 +36,8 @@ def process_image():
 # TODO: Call process_image function.
 def main():
 #    hello_world()
-    return
+	process_image()
+    	return
 
 
 if(__name__ == '__main__'):
