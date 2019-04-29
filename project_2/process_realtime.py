@@ -48,7 +48,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         image_crop = gray[y:(y+h), x:(x+w)]
         image_crop = cv2.resize(image_crop,(224,224))
         #print(str(x),str(y),str(w),str(h))
-        cv2.imshow("image", gray)
+        #cv2.imshow("image", gray)
         #compression.push_back(100)
         cv2.imwrite("Adam-" + str(i) + ".jpg", image_crop)
         i = i+1
