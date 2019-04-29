@@ -49,7 +49,7 @@ def load_model():
     model.summary()
 
     # TODO: compile the model, use SGD(lr=1e-4,momentum=0.9) for optimizer, 'categorical_crossentropy' for loss,
-    model.compile(optimizer=SGD(1r=1e-4,momentum=0.9), loss='categprical_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer=SGD(1r=1e-4,momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
     # TODO: and ['accuracy'] for metrics
 
     print 'Compile model'
@@ -92,7 +92,7 @@ def main():
     print 'Load val data:'
     X_val, Y_val = load_data(VAL_DIR)
     # TODO: Train model
-    model.fit(x=X_train, y=Y_train, validation_data=(X_val,Y_val))
+    model.fit(x=X_train, y=Y_train, batch_size=BATCH_SIZE, epochs=NUM_EPOCHS, validation_data=(X_val,Y_val))
     # TODO: Save model weights
     model.save()
     print 'model weights saved.'
