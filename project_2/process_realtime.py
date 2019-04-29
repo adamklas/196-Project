@@ -15,6 +15,7 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
 import cv2
+import numpy
 
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
@@ -24,15 +25,33 @@ rawCapture = PiRGBArray(camera, size=(640, 480))
 
 # allow the camera to warmup
 time.sleep(0.1)
-
+i = 0
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
 
+    #priocess into simple rectangle
+    #image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image = cv2.resize(image,(160,120))
+    #size1 = resized_image.shape
+
+    #cv2.rectangle(resized_image,((size1[1]/2)-50,(size1[0]/2)-50),((size1[1]/2)+50,(size1[0]/2)+50),(255,255,255))
+    
+
+    #face detection process
+    face_cascade = cv2.CascadeClassifier('/home/pi/opencv-2.4.13.4/data/haarcascades/haarcascade_frontalface_default.xml')
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    face = face_cascade.detectMultiScale(gray, 1.3,5)
+    for (x,y,w,h) in face:
+        image_crop = image[(x-w):x,(y-h):h]
+        #image_crop = cv2.rectangle(gray,(x,y),(x+w,y+h),(255,255,255))
+        cv2.imwrite("Adam-" + str(i) + ".jpg", image_crop)
+        i = i+1
+        print(str(i))
     # show the frame
-    cv2.imshow("Frame", image)
+    cv2.imshow("Frame", gray)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in preparation for the next frame
