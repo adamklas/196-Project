@@ -34,7 +34,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     #priocess into simple rectangle
     #image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    image = cv2.resize(image,(160,120))
+    #image = cv2.resize(image,(160,120))
     #size1 = resized_image.shape
 
     #cv2.rectangle(resized_image,((size1[1]/2)-50,(size1[0]/2)-50),((size1[1]/2)+50,(size1[0]/2)+50),(255,255,255))
@@ -46,6 +46,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     face = face_cascade.detectMultiScale(gray, 1.3,5)
     for (x,y,w,h) in face:
         image_crop = gray[y:(y+h), x:(x+w)]
+        image_crop = cv2.resize(image_crop,(224,224))
         #print(str(x),str(y),str(w),str(h))
         cv2.imshow("image", gray)
         #compression.push_back(100)
