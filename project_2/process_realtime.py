@@ -45,7 +45,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     face = face_cascade.detectMultiScale(gray, 1.3,5)
     for (x,y,w,h) in face:
-        image_crop = gray[(x):(x+h),(y):(y+h)]
+        image_crop = gray[y:(y+h), x:(x+w)]
         #print(str(x),str(y),str(w),str(h))
         cv2.imshow("image", gray)
         #compression.push_back(100)
