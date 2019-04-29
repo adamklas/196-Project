@@ -45,8 +45,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     face = face_cascade.detectMultiScale(gray, 1.3,5)
     for (x,y,w,h) in face:
-        image_crop = image[(x-w):x,(y-h):h]
-        #image_crop = cv2.rectangle(gray,(x,y),(x+w,y+h),(255,255,255))
+        image_crop = gray[(x):(x+h),(y):(y+h)]
+        #print(str(x),str(y),str(w),str(h))
+        cv2.imshow("image", gray)
+        #compression.push_back(100)
         cv2.imwrite("Adam-" + str(i) + ".jpg", image_crop)
         i = i+1
         print(str(i))
