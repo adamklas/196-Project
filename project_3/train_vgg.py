@@ -31,18 +31,25 @@ NUM_CLASSES = 20  # TODO
 
 def load_model():
     # TODO: use VGG16 to load lower layers of vgg16 network and declare it as base_model
+    base_model = VGG16(include_top=False,weights = 'imagenet',input_shape = (IMG_H, IMG_W, NUM_CHANNELS))
     # TODO: use 'imagenet' for weights, include_top=False, (IMG_H, IMG_W, NUM_CHANNELS) for input_shape
 
     print('Model weights loaded.')
     base_out = base_model.output
     # TODO: add a flatten layer, a dense layer with 256 units, a dropout layer with 0.5 rate,
+    x = Flatten()(base_out)
+    x = Dense(256)(x)
+    x = Dropout(.5)
+    
     # TODO: and another dense layer for output. The final layer should have the same number of units as classes
+    predictions = Dense(NUM_CLASSES)(x)
 
     model = Model(inputs=base_model.input, outputs=predictions)
     print 'Build model'
     model.summary()
 
     # TODO: compile the model, use SGD(lr=1e-4,momentum=0.9) for optimizer, 'categorical_crossentropy' for loss,
+    model.compile(optimizer=SGD(1r=1e-4,momentum=0.9), loss='categprical_crossentropy',metrics=['accuracy'])
     # TODO: and ['accuracy'] for metrics
 
     print 'Compile model'
@@ -85,9 +92,9 @@ def main():
     print 'Load val data:'
     X_val, Y_val = load_data(VAL_DIR)
     # TODO: Train model
-
+    model.fit(x=X_train, y=Y_train, validation_data=(X_val,Y_val))
     # TODO: Save model weights
-
+    model.save()
     print 'model weights saved.'
     return
 
