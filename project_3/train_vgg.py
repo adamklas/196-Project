@@ -14,6 +14,7 @@ from keras.applications.vgg16 import VGG16
 from keras import optimizers
 from keras.layers import Dropout, Flatten, Dense
 from keras.utils.np_utils import to_categorical
+from keras.optimizers import SGD
 import numpy as np
 import glob
 import os
@@ -26,7 +27,7 @@ TRAIN_DIR = './Train'  # TODO
 VAL_DIR = './Validation'  # TODO
 NUM_EPOCHS = 1  # TODO
 BATCH_SIZE = 16
-NUM_CLASSES = 18  # TODO
+NUM_CLASSES = 19  # TODO
 
 
 def load_model():
@@ -39,7 +40,7 @@ def load_model():
     # TODO: add a flatten layer, a dense layer with 256 units, a dropout layer with 0.5 rate,
     x = Flatten()(base_out)
     x = Dense(256)(x)
-    x = Dropout(.5)
+    x = Dropout(.5)(x)
     
     # TODO: and another dense layer for output. The final layer should have the same number of units as classes
     predictions = Dense(NUM_CLASSES)(x)
@@ -49,7 +50,7 @@ def load_model():
     model.summary()
 
     # TODO: compile the model, use SGD(lr=1e-4,momentum=0.9) for optimizer, 'categorical_crossentropy' for loss,
-    model.compile(optimizer=SGD(1r=1e-4,momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer=SGD(lr=1e-4,momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
     # TODO: and ['accuracy'] for metrics
 
     print 'Compile model'
