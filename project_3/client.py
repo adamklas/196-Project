@@ -104,7 +104,7 @@ def main():
 
                 # TODO: Get label and confidence using request_from_server
 		prediction = request_from_server(image_crop)
-                confidence = prediction.confidence
+                confidence = prediction["confidence"]
 		label = prediction["label"]
                 print('New result found!')
 

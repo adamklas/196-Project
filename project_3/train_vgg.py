@@ -25,7 +25,7 @@ IMG_H, IMG_W, NUM_CHANNELS = 224, 224, 3
 MEAN_PIXEL = np.array([104., 117., 123.]).reshape((1, 1, 3))
 TRAIN_DIR = './Train'  # TODO
 VAL_DIR = './Validation'  # TODO
-NUM_EPOCHS = 1  # TODO
+NUM_EPOCHS = 7  # TODO
 BATCH_SIZE = 16
 NUM_CLASSES = 19  # TODO
 
@@ -39,11 +39,11 @@ def load_model():
     base_out = base_model.output
     # TODO: add a flatten layer, a dense layer with 256 units, a dropout layer with 0.5 rate,
     x = Flatten()(base_out)
-    x = Dense(256)(x)
+    x = Dense(256, activation='relu')(x)
     x = Dropout(.5)(x)
     
     # TODO: and another dense layer for output. The final layer should have the same number of units as classes
-    predictions = Dense(NUM_CLASSES)(x)
+    predictions = Dense(NUM_CLASSES, activation='softmax')(x)
 
     model = Model(inputs=base_model.input, outputs=predictions)
     print 'Build model'

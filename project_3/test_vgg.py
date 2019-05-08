@@ -52,8 +52,12 @@ def main():
     	print 'Load test data:'
     	X_test, Y_test = load_data(TEST_DIR)
     	# TODO: get accuracy
-	model.evaluate(X_test, Y_test, BATCH_SIZE, 1)
-	return
+	evaluation = model.evaluate(X_test, Y_test, BATCH_SIZE, 1)
+	
+        print(evaluation)        
+        print(model.metrics_names)	
+	       
+        return
 
 
 if __name__ == '__main__':

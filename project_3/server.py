@@ -43,7 +43,7 @@ def classify(path_to_image):
 
     # TODO: Use opencv to read and resize image to standard dimensions
     img =  cv2.imread(path_to_image,0)
-    resized_img = cv2.resize(img,(img_height,img_weidth))
+    resized_img = cv2.resize(img,(img_height,img_width))
 
     # TODO: Subtract mean_pixel from the image store the new image in
     # a variable called 'normalized_image'
@@ -55,7 +55,7 @@ def classify(path_to_image):
     # TODO: Use network to predict the 'image_to_be_classified' and
     # get an array of prediction values
     # Note: MODEL.predict() returns an array of arrays ie. [[classes]]
-    predictions =  MODEL.predict(image_to_be_classified,16)
+    predictions =  MODEL.predict(image_to_be_classified)
 
     # TODO: Get the predicted label which is defined as follows:
     # Label = the index of the largest value in the prediction array
