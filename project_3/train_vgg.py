@@ -95,7 +95,7 @@ def main():
     # TODO: Train model
     model.fit(x=X_train, y=Y_train, batch_size=BATCH_SIZE, epochs=NUM_EPOCHS, validation_data=(X_val,Y_val))
     # TODO: Save model weights
-    model.save('./vgg16_new_version_weights/h5')
+    model.save('./vgg16_new_version_weights.h5')
     print 'model weights saved.'
     return
 
