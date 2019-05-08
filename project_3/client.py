@@ -20,7 +20,7 @@ from picamera.array import PiRGBArray
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 # TODO: Declare path to face cascade
-CASCADE_PATH = ""
+CASCADE_PATH = "/home/pi/opencv-2.4.13.4/data/haarcascades/haarcascade_frontalface_default.xml"
 
 
 def request_from_server(img):
@@ -37,7 +37,7 @@ def request_from_server(img):
     temp_image_name = 'temp.jpg'
 
     # TODO: Save image with name stored in 'temp_image_name'
-
+    cv2.imwrite(temp_image_name, img)
     # Reopen image and encode in base64
     # Open binary file in read mode
     image = open(temp_image_name, 'rb')
@@ -59,7 +59,7 @@ def request_from_server(img):
 def main():
     # 1. Start running the camera.
     # TODO: Initialize face detector
-
+    face_cascade = cv2.CascadeClassifier(CASCADE_PATH)
     # Initialize camera and update parameters
     camera = PiCamera()
     width = 640
@@ -85,11 +85,14 @@ def main():
 
         # TODO: Use face detector to get faces.
         # Be sure to save the faces in a variable called 'faces'
+	faces = face_cascade.detectMultiScale(img,1.3,5)
 
         for (x, y, w, h) in faces:
             print('==================================')
             print('Face detected!')
             cv2.imshow('Face Image for Classification', frame)
+	    image_crop = img[y:(y+h), x:(x+w)]
+            image_crop = cv2.resize(image_crop,(224,224))
 
             # Keep showing image until a key is pressed
             cv2.waitKey()
@@ -100,7 +103,9 @@ def main():
                 print('Let\'s see who you are...')
 
                 # TODO: Get label and confidence using request_from_server
-
+		prediction = request_from_server(image_crop)
+                confidence = prediction.confidence
+		label = prediction["label"]
                 print('New result found!')
 
                 # TODO: Display label on face image
@@ -108,6 +113,13 @@ def main():
                 # [OPTIONAL]: At this point you only have a number to display,
                 # you could add some extra code to convert your number to a
                 # name
+		if label==17
+			result_to_display = 'Hello Miro!'	
+		else if label == 18
+			result_to_display = 'Hello Adam!'
+		else
+			result_to_display = label
+		
 
                 cv2.putText(frame, str(result_to_display), (10, 30), FONT, 1, (0, 255, 0), 2)
                 cv2.imshow('Face Image for Classification', frame)
