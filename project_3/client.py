@@ -20,7 +20,7 @@ from picamera.array import PiRGBArray
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 # TODO: Declare path to face cascade
-CASCADE_PATH = "/home/pi/opencv-2.4.13.4/data/haarcascades/haarcascade_frontalface_default.xml"
+CASCADE_PATH = "/usr/local/share/opencv4/haarcascades/haarcascade_frontalface_default.xml"
 
 
 def request_from_server(img):
@@ -31,7 +31,7 @@ def request_from_server(img):
     :returns: Returns a dictionary containing label and cofidence.
     """
     # URL or PUBLIC DNS to your server
-    URL = "ec2-54-188-84-197.us-west-2.compute.amazonaws.com"
+    URL = "http://ec2-54-188-118-57.us-west-2.compute.amazonaws.com:8080/predict"
 
     # File name so that it can be temporarily stored.
     temp_image_name = 'temp.jpg'
@@ -64,7 +64,7 @@ def main():
     camera = PiCamera()
     width = 640
     height = 480
-    camera.rotation = 180
+    #camera.rotation = 180
     camera.resolution = (width, height)
     rawCapture = PiRGBArray(camera, size=(width, height))
 
@@ -113,15 +113,15 @@ def main():
                 # [OPTIONAL]: At this point you only have a number to display,
                 # you could add some extra code to convert your number to a
                 # name
-		if label==17
+                if int(label)==17:
 			result_to_display = 'Hello Miro!'	
-		else if label == 18
+                elif int(label)== 18:
 			result_to_display = 'Hello Adam!'
-		else
+                else:
 			result_to_display = label
 		
 
-                cv2.putText(frame, str(result_to_display), (10, 30), FONT, 1, (0, 255, 0), 2)
+                cv2.putText(frame, str(result_to_display + ", conf: " + str(confidence)), (10, 30), FONT, 1, (0, 255, 0), 2)
                 cv2.imshow('Face Image for Classification', frame)
                 cv2.waitKey()
                 break
